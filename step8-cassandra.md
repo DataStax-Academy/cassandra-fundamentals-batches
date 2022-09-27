@@ -20,7 +20,7 @@
 
 <!-- CONTENT -->
 
-<div class="step-title">What tables with single-row partitions are good for?</div>
+<div class="step-title">Batch limitations</div>
 
 In Cassandra, tables are designed to support specific queries. Tables with 
 single-row partitions are generally used to store and retrieve entities 

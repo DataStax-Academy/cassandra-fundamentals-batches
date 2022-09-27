@@ -20,7 +20,7 @@
 
 <!-- CONTENT -->
 
-<div class="step-title">Create table "genres"</div>
+<div class="step-title">Adding a movie rating</div>
 
 Our next table will store information about movie genres as shown below. This table 
 with *single-row partitions* and a *simple partition key* is for you to define.

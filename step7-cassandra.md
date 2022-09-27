@@ -20,7 +20,7 @@
 
 <!-- CONTENT -->
 
-<div class="step-title">Create table "actors"</div>
+<div class="step-title">Deleting a movie rating</div>
 
 Our last table will store information about movie actors as shown below. This table 
 with *single-row partitions* and a *composite partition key* is for you to define.

@@ -20,7 +20,7 @@
 
 <!-- CONTENT -->
 
-<div class="step-title">Tables, columns, data types, rows, partitions, keys, ordering</div>
+<div class="step-title">Atomic batches</div>
 
 A *table* in Apache Cassandra shares many similarities with a table in a relational database. It has named *columns* with *data types* and *rows* with *values*. A *primary key* uniquely identifies a row in a table. 
 

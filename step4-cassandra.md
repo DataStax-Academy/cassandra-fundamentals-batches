@@ -20,7 +20,7 @@
 
 <!-- CONTENT -->
 
-<div class="step-title">Create table "users"</div>
+<div class="step-title">Creating a shopping cart</div>
 
 Our first table will store information about users as shown below. To define 
 this table with *single-row partitions*, we can use `email`

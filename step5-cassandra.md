@@ -20,7 +20,7 @@
 
 <!-- CONTENT -->
 
-<div class="step-title">Create table "movies"</div>
+<div class="step-title">Updating a shopping cart</div>
 
 Our second table will store information about movies as shown below.  To define 
 this table with *single-row partitions*, we can use `title` and `year`

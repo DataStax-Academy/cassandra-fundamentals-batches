@@ -20,7 +20,7 @@
 
 <!-- CONTENT -->
 
-<div class="step-title">Creating tables</div>
+<div class="step-title">Syntax</div>
 
 To create a table, Cassandra Query Language has the `CREATE TABLE` statement with the following simplified syntax:
 
