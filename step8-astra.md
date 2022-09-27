@@ -12,8 +12,8 @@
  <a href='command:katapod.loadPage?[{"step":"step7-astra"}]'
    class="btn btn-dark navigation-top-left">⬅️ Back
  </a>
-<span class="step-count"> Step 8 of 9</span>
- <a href='command:katapod.loadPage?[{"step":"step9-astra"}]'
+<span class="step-count"> Step 8 of 8</span>
+ <a href='command:katapod.loadPage?[{"step":"finish-astra"}]'
     class="btn btn-dark navigation-top-right">Next ➡️
   </a>
 </div>
@@ -66,7 +66,7 @@ CREATE TABLE IF NOT EXISTS ratings_by_movie (
  <a href='command:katapod.loadPage?[{"step":"step7-astra"}]'
    class="btn btn-dark navigation-bottom-left">⬅️ Back
  </a>
- <a href='command:katapod.loadPage?[{"step":"step9-astra"}]'
+ <a href='command:katapod.loadPage?[{"step":"finish-astra"}]'
     class="btn btn-dark navigation-bottom-right">Next ➡️
   </a>
 </div>

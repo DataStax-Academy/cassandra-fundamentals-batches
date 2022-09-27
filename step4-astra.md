@@ -12,7 +12,7 @@
  <a href='command:katapod.loadPage?[{"step":"step3-astra"}]'
    class="btn btn-dark navigation-top-left">⬅️ Back
  </a>
-<span class="step-count"> Step 4 of 9</span>
+<span class="step-count"> Step 4 of 8</span>
  <a href='command:katapod.loadPage?[{"step":"step5-astra"}]' 
     class="btn btn-dark navigation-top-right">Next ➡️
   </a>
