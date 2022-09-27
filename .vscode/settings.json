@@ -1,0 +1,13 @@
+{
+    "terminal.integrated.tabs.enabled": false,
+    "workbench.statusBar.visible": false,
+    "workbench.panel.defaultLocation": "right",
+    "workbench.panel.opensMaximized": "preserve",
+    "workbench.activityBar.visible": false,
+    "editor.minimap.enabled": false,
+    "terminal.integrated.defaultLocation": "view",
+    "workbench.editor.showTabs": false,
+    "breadcrumbs.enabled": false,
+    "zenMode.fullScreen": false,
+    "workbench.startupEditor": "none"
+}

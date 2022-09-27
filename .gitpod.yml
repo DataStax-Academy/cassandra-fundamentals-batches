@@ -1,0 +1,25 @@
+tasks:
+  - name: install-dependencies
+    before: |
+      printf 'export PATH="$HOME%s:$PATH"\n' "/.astra/cli" >> $HOME/.bashrc
+      printf 'unset JAVA_TOOL_OPTIONS\n' >> $HOME/.bashrc
+      curl -Ls "https://dtsx.io/get-astra-cli" | bash >> ./install.log
+    init: |
+      docker pull cassandra:4.0
+      pip install -U cqlsh
+    command: | 
+      docker run -p 9042:9042 -d \
+                 --name Cassandra \
+                 -v ${PWD}/config/cassandra.yaml:/etc/cassandra/cassandra.yaml \
+                 -v ${PWD}/config/cassandra-rackdc.properties:/etc/cassandra/cassandra-rackdc.properties cassandra:4.0
+      source /home/gitpod/.astra/cli/astra-init.sh
+ports:
+  - port: 9042
+    onOpen: ignore
+github:
+  prebuilds:
+    main: true
+vscode:
+   extensions:
+    - https://github.com/HadesArchitect/katapod/releases/download/nightly/katapod-nightly.vsix
+
