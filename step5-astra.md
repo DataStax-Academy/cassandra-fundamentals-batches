@@ -2,7 +2,7 @@
 <div class="top">
   <img src="https://datastax-academy.github.io/katapod-shared-assets/images/ds-academy-logo.svg" />
   <div class="scenario-title-section">
-    <span class="scenario-title">Tables with Single-Row Partitions in Apache Cassandra®</span>
+    <span class="scenario-title">Atomicity and Batches in Apache Cassandra®</span>
     <span class="scenario-subtitle">ℹ️ For technical support, please contact us via <a href="mailto:aleksandr.volochnev@datastax.com">email</a> or <a href="https://dtsx.io/aleks">LinkedIn</a>.</span>
   </div>
 </div>
