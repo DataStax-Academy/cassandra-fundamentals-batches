@@ -22,12 +22,13 @@
       <div class="feature col div-choice">
         <div class="scenario-completed">Lab Completed. Congratulations!</div>
         <br/>
-        <div class="scenario-objectives">In this hands-on lab, you explored:</div>
+        <div class="scenario-objectives">In this hands-on lab, you learned about:</div>
         <ul>
-              <li><span class="scenario-objective">Tables and the CQL <code>CREATE TABLE</code> statement</span></li>
-              <li><span class="scenario-objective">Tables with <i>single-row partitions</i></span></li>
-              <li><span class="scenario-objective"><i>Simple</i> and <i>composite</i> partition keys</span></li>
-              <li><span class="scenario-objective">Useful CQL statements and CQL shell commands that work with tables</span></li>
+              <li><span class="scenario-objective">Batches and atomicity</span></li>
+              <li><span class="scenario-objective">Difference between single-partition and multi-partition batches</span></li>
+              <li><span class="scenario-objective">CQL statement <code>BEGIN BATCH</code></span></li>
+              <li><span class="scenario-objective">Several examples of using atomic batches</span></li>
+              <li><span class="scenario-objective">When to use atomic batches in production</span></li>
         </ul>
         <div class="resources">Learn more about Cassandra on <a href="https://datastax.com/dev" target="_blank">datastax.com/dev</a>:</div>
         <ul>

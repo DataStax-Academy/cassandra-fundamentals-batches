@@ -2,7 +2,7 @@
 <div class="top">
   <img src="https://datastax-academy.github.io/katapod-shared-assets/images/ds-academy-logo.svg" />
   <div class="scenario-title-section">
-    <span class="scenario-title">Tables with Single-Row Partitions in Apache Cassandra®</span>
+    <span class="scenario-title">Atomicity and Batches in Apache Cassandra®</span>
     <span class="scenario-subtitle">ℹ️ For technical support, please contact us via <a href="mailto:aleksandr.volochnev@datastax.com">email</a> or <a href="https://dtsx.io/aleks">LinkedIn</a>.</span>
   </div>
 </div>
@@ -13,17 +13,18 @@
     <div class="container px-4 py-2">
      <div class="row g-4 py-2 row-cols-1 row-cols-lg-1">
       <div class="feature col div-choice">
-            <div class="scenario-description">Learn how to create tables that can only have one row per partition in a Cassandra NoSQL database.</div>
+            <div class="scenario-description">Learn how and when to use atomic batches in a Cassandra NoSQL database.</div>
             <ul>
-              <li><span class="scenario-description-attribute">Difficulty</span>: Beginner</li>
-              <li><span class="scenario-description-attribute">Time</span>: 15 minutes</li>
+              <li><span class="scenario-description-attribute">Difficulty</span>: Intermediate</li>
+              <li><span class="scenario-description-attribute">Time</span>: 20 minutes</li>
             </ul>
             <div class="scenario-objectives">In this hands-on lab, you will:</div>
             <ul>
-              <li><span class="scenario-objective">Create tables using the CQL <code>CREATE TABLE</code> statement</span></li>
-              <li><span class="scenario-objective">Learn about tables with <i>single-row partitions</i></span></li>
-              <li><span class="scenario-objective">Understand the difference between <i>simple</i> and <i>composite</i> partition keys</span></li>
-              <li><span class="scenario-objective">Practice several useful CQL statements and CQL shell commands that work with tables</span></li>
+              <li><span class="scenario-objective">Understand how batches can ensure atomicity</span></li>
+              <li><span class="scenario-objective">Learn the difference between single-partition and multi-partition batches</span></li>
+              <li><span class="scenario-objective">Use CQL statement <code>BEGIN BATCH</code></span></li>
+              <li><span class="scenario-objective">Explore several examples of using atomic batches</span></li>
+              <li><span class="scenario-objective">Learn when to use atomic batches in production</span></li>
             </ul>
       </div>
      </div>
