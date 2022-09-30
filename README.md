@@ -13,5 +13,5 @@ _This hands-on lab is available on our [https://www.datastax.com/learn/cassandra
 
 ## Start the hands-on lab:
 
-[![Open in KataPod](https://github.com/DataStax-Academy/katapod-shared-assets/blob/main/images/open-in-katapod.png)](https://gitpod.io/#https://github.com/ArtemChebotko/cassandra-fundamentals-batches/)
+[![Open in KataPod](https://github.com/DataStax-Academy/katapod-shared-assets/blob/main/images/open-in-katapod.png)](https://gitpod.io/#https://github.com/DataStax-Academy/cassandra-fundamentals-batches/)
 
