@@ -20,49 +20,42 @@
 
 <!-- CONTENT -->
 
-<div class="step-title">Create table "movies"</div>
+<div class="step-title">Updating a shopping cart</div>
 
-Our second table will store information about movies as shown below.  To define 
-this table with *single-row partitions*, we can use `title` and `year`
-as a *composite partition key*.
+Next, for your practice, use a *single-partition batch* to add another movie into the same shopping cart and update the running total. 
 
-| title               | year | duration | avg_rating |
-|---------------------|------|----------|------------|
-| Alice in Wonderland | 2010 |   108    |    6.00    |
-| Alice in Wonderland | 1951 |    75    |    7.08    |
+✅ Update the shopping cart: 
+<details>
+  <summary>Solution</summary>
+
+```
+BEGIN BATCH
+  INSERT INTO shopping_cart 
+         (cart_id, title, year, price, user) 
+  VALUES (b7255608-4a42-4829-9b84-a355e0e5100d, 
+         'Edward Scissorhands', 1990, 3.99, 
+         'joe@datastax.com');
+  UPDATE shopping_cart SET total = 6.97
+  WHERE cart_id = b7255608-4a42-4829-9b84-a355e0e5100d
+  IF total = 2.98;
+APPLY BATCH;  
+```
+
+</details>
 
 <br/>
 
-✅ Create the table:
+✅ Retrieve the shopping cart:
+<details>
+  <summary>Solution</summary>
+
 ```
-CREATE TABLE IF NOT EXISTS movies (
-  title TEXT,
-  year INT,
-  duration INT,
-  avg_rating FLOAT,
-  PRIMARY KEY ((title, year))
-);
+SELECT total, price, title, year 
+FROM shopping_cart
+WHERE cart_id = b7255608-4a42-4829-9b84-a355e0e5100d;
 ```
 
-✅ Insert the rows:
-```
-INSERT INTO movies (title, year, duration, avg_rating) 
-VALUES ('Alice in Wonderland', 2010, 108, 6.00);
-INSERT INTO movies (title, year, duration, avg_rating) 
-VALUES ('Alice in Wonderland', 1951, 75, 7.08);
-```
-
-✅ Retrieve one row:
-```
-SELECT * FROM movies
-WHERE title = 'Alice in Wonderland'
-  AND year = 2010;
-```
-
-✅ Retrieve all rows:
-```
-SELECT * FROM movies;
-```
+</details>
 
 <!-- NAVIGATION -->
 <div id="navigation-bottom" class="navigation-bottom">

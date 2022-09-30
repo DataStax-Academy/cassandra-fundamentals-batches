@@ -20,70 +20,44 @@
 
 <!-- CONTENT -->
 
-<div class="step-title">Create table "actors"</div>
+<div class="step-title">Deleting a movie rating</div>
 
-Our last table will store information about movie actors as shown below. This table 
-with *single-row partitions* and a *composite partition key* is for you to define.
+Finally, for your practice, use a *multi-partition batch* to delete the previously inserted and updated movie rating.
 
-| first_name | last_name  | dob        |
-|----------- |------------|------------|
-| Johnny     | Depp       | 1963-06-09 |
-| Anne       | Hathaway   | 1982-11-12 | 
-
-<br/>
-
-✅ Create the table:
+✅ Delete the movie rating:  
 <details>
   <summary>Solution</summary>
 
 ```
-CREATE TABLE IF NOT EXISTS actors (
-  first_name TEXT,
-  last_name TEXT,
-  dob DATE,
-  PRIMARY KEY ((first_name, last_name))
-);
+BEGIN BATCH
+  DELETE FROM ratings_by_user 
+  WHERE email = 'joe@datastax.com' 
+    AND title = 'Alice in Wonderland' 
+    AND year  = 2010;
+  DELETE FROM ratings_by_movie 
+  WHERE email = 'joe@datastax.com' 
+    AND title = 'Alice in Wonderland' 
+    AND year  = 2010;
+APPLY BATCH;  
 ```
 
 </details>
 
 <br/>
 
-✅ Insert the rows:
+✅ Verify that the rating is no longer in the tables:
 <details>
   <summary>Solution</summary>
 
 ```
-INSERT INTO actors (first_name, last_name, dob) 
-VALUES ('Johnny', 'Depp', '1963-06-09');
-INSERT INTO actors (first_name, last_name, dob) 
-VALUES ('Anne', 'Hathaway', '1982-11-12');
-```
-
-</details>
-
-<br/>
-
-✅ Retrieve one row:
-<details>
-  <summary>Solution</summary>
-
-```
-SELECT * FROM actors
-WHERE first_name = 'Johnny'
-  AND last_name = 'Depp';
-```
-
-</details>
-
-<br/>
-
-✅ Retrieve all rows:
-<details>
-  <summary>Solution</summary>
-
-```
-SELECT * FROM actors;
+SELECT * FROM ratings_by_user  
+WHERE email = 'joe@datastax.com' 
+  AND title = 'Alice in Wonderland' 
+  AND year  = 2010;
+SELECT * FROM ratings_by_movie  
+WHERE email = 'joe@datastax.com' 
+  AND title = 'Alice in Wonderland' 
+  AND year  = 2010;
 ```
 
 </details>

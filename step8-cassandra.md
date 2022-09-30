@@ -22,43 +22,32 @@
 
 <div class="step-title">Batch limitations</div>
 
-In Cassandra, tables are designed to support specific queries. Tables with 
-single-row partitions are generally used to store and retrieve entities 
-by their unique identifiers, such as retrieving a *user by email* or *movie by title and year*.
+*Single-partition batches* are quite efficient and can performance better than individual statements 
+because batches save on client-coordinator and coordinator-replicas communication. However, sending 
+a large batch with hundreds of statements to one coordinator node can also negatively affect 
+workload balancing. 
 
-Of course, it is possible to use tables with 
-single-row partitions for relationships, such as *user rated movie* in the example below, but tables 
-with multi-row partitions are much more suitable for that. 
- 
+*Multi-partition batches* are substantially more expensive as they require maintaining a *batchlog* 
+in a separate Cassandra table. Therefore, even with respect to the main use case of updating 
+the same data duplicated across multiple partitions due to denormalization, use multi-partition batches 
+only when atomicity is truly important for your application. There are other ways to check and ensure consistency among duplicates 
+for less critical data without sacrificing write performance. 
+
+Finally, do not use batches to group operations just for the sake of grouping. 
+This example is an anti-pattern:
+
 ```
--- Not a good way to 
--- store relationships ... 
-CREATE TABLE IF NOT EXISTS user_rated_movie (
-  email TEXT,
-  title TEXT,
-  year INT,
-  rating INT,
-  PRIMARY KEY ((email, title, year))
-);
-
--- Tables with multi-row partitions 
--- are the way to go ...
--- Get all rating left by a user
-CREATE TABLE IF NOT EXISTS ratings_by_user (
-  email TEXT,
-  title TEXT,
-  year INT,
-  rating INT,
-  PRIMARY KEY ((email), title, year)
-);
---  Get all ratings left for a movie
-CREATE TABLE IF NOT EXISTS ratings_by_movie (
-  email TEXT,
-  title TEXT,
-  year INT,
-  rating INT,
-  PRIMARY KEY ((title, year), email)
-);
+-- This is an anti-pattern
+BEGIN BATCH
+  INSERT INTO users (email, name, age, date_joined) 
+  VALUES ('joe@datastax.com', 'Joe', 25, '2020-01-01');
+  INSERT INTO users (email, name, age, date_joined) 
+  VALUES ('jen@datastax.com', 'Jen', 27, '2020-01-01');
+  INSERT INTO movies (title, year, duration, avg_rating, price) 
+  VALUES ('Alice in Wonderland', 2010, 108, 8.33, 1.99);
+  INSERT INTO movies (title, year, duration, avg_rating, price) 
+  VALUES ('Alice in Wonderland', 1951, 75, 6.5, 0.99);  
+APPLY BATCH;
 ```
 
 <!-- NAVIGATION -->

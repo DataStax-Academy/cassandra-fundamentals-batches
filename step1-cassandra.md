@@ -22,18 +22,24 @@
 
 <div class="step-title">Atomic batches</div>
 
-A *table* in Apache Cassandra shares many similarities with a table in a relational database. It has named *columns* with *data types* and *rows* with *values*. A *primary key* uniquely identifies a row in a table. 
+In Cassandra, individual insert, update and delete operations are atomic and isolated, meaning that 
+either an operation occurs or nothing occurs (atomicity) and any partially updated data is not visible (isolated) 
+to other operations. To achieve atomicity for a set of operations, Cassandra provides atomic batches. 
 
-There are also important differences. In Cassandra, on one hand, a table is a set of *rows* containing values and, on the other hand,
-a table is also a set of *partitions* containing rows. Specifically, each row belongs to exactly one partition and each partition contains one or more rows. A *primary key* consists of a mandatory *partition key* and optional *clustering key*, where
-a partition key uniquely identifies a partition in a table and a clustering key uniquely identifies a row in a partition.
+An *atomic batch* can group related insert, update and delete operations into 
+a single indivisible statement that guarantees *atomicity* during its execution. More specifically, 
+in the context of batches, *atomicity* means that if at least one operation in a batch succeeds, 
+all other operations are guaranteed to succeed.
 
-A table with *single-row partitions* is a table where there is exactly one row per partition. A table 
-with single-row partitions defines a primary key to be equivalent to a partition key.  
-
-A table with *multi-row partitions* is a table where there can be one or more rows per partition. A table 
-with multi-row partitions defines a primary key to be a combination of both partition and clustering keys. Rows in the 
-same partition have the same partition key values and are *ordered* based on their clustering key values using the default ascendant order.
+Logically, there are two categories of batches that provide different guarantees and support different use cases: 
+- A *single-partition batch* is an atomic batch where all operations work on the same partition and that, under the hood, 
+can be executed as a single write operation. As a result, single-partition batches guarantee both 
+all-or-nothing *atomicity* and *isolation*. The main use case for single-partition batches is 
+updating *related data* that may become corrupt unless atomicity is enforced.
+- A *multi-partition batch* is an atomic batch where operations work on different partitions 
+that belong to the same table or different tables. Multi-partition batches only guarantee *atomicity*. Their main use case 
+is updating *the same data* duplicated across multiple partitions due to denormalization. Atomicity ensures that all duplicates 
+are consistent.
 
 <!-- NAVIGATION -->
 <div id="navigation-bottom" class="navigation-bottom">

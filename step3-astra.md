@@ -41,22 +41,54 @@ astra setup
 astra db list
 ```
 
-✅ Create database `cassandra-fundamentals` and keyspace `ks_single_row_partitions` if they do not exist:
+✅ Create database `cassandra-fundamentals` and keyspace `ks_batches` if they do not exist:
 ```
-astra db create cassandra-fundamentals -k ks_single_row_partitions --if-not-exist --wait
+astra db create cassandra-fundamentals -k ks_batches --if-not-exist --wait
 ```
 
 This operation may take a bit longer when creating a new database or resuming an existing hibernated database.
 
-✅ Verify that database `cassandra-fundamentals` is `ACTIVE` and keyspace `ks_single_row_partitions` exists:
+✅ Verify that database `cassandra-fundamentals` is `ACTIVE` and keyspace `ks_batches` exists:
 ```
 astra db get cassandra-fundamentals
 ```
 
-✅ Start the CQL shell and connect to database `cassandra-fundamentals` and keyspace `ks_single_row_partitions`:
+✅ Start the CQL shell and connect to database `cassandra-fundamentals` and keyspace `ks_batches`:
 ```
 clear
-astra db cqlsh cassandra-fundamentals -k ks_single_row_partitions
+astra db cqlsh cassandra-fundamentals -k ks_batches
+```
+
+✅ Create and populate the tables:
+```
+CREATE TABLE IF NOT EXISTS users (
+  email TEXT,
+  name TEXT,
+  age INT,
+  date_joined DATE,
+  PRIMARY KEY ((email))
+);
+INSERT INTO users (email, name, age, date_joined) 
+VALUES ('joe@datastax.com', 'Joe', 25, '2020-01-01');
+INSERT INTO users (email, name, age, date_joined) 
+VALUES ('jen@datastax.com', 'Jen', 27, '2020-01-01');
+INSERT INTO users (email, name, age, date_joined) 
+VALUES ('jim@datastax.com', 'Jim', 31, '2020-05-07');
+
+CREATE TABLE IF NOT EXISTS movies (
+  title TEXT,
+  year INT,
+  duration INT,
+  avg_rating FLOAT,
+  price DECIMAL,
+  PRIMARY KEY ((title, year))
+);
+INSERT INTO movies (title, year, duration, avg_rating, price) 
+VALUES ('Alice in Wonderland', 2010, 108, 8.33, 1.99);
+INSERT INTO movies (title, year, duration, avg_rating, price) 
+VALUES ('Alice in Wonderland', 1951, 75, 6.5, 0.99);
+INSERT INTO movies (title, year, duration, avg_rating, price) 
+VALUES ('Edward Scissorhands', 1990, 98, 8.5, 3.99);
 ```
 
 <!-- NAVIGATION -->

@@ -22,69 +22,67 @@
 
 <div class="step-title">Adding a movie rating</div>
 
-Our next table will store information about movie genres as shown below. This table 
-with *single-row partitions* and a *simple partition key* is for you to define.
+In this example, we use a *multi-partition batch* to add the same movie rating into two different tables 
+`ratings_by_user` and `ratings_by_movie`. Since the tables store copies of the same data, any inserts, updates and deletes 
+must go to both tables. In this case, atomicity is important to ensure that copies of the same data are in sync.
+This is a classic example of using multi-partition batches for keeping denormalized and duplicated data consistent.
 
-| genre     | description |
-|-----------|-------------|
-| Adventure |  A story about a protagonist who journeys to epic or distant places to accomplish something. |
-| Fantasy   |  A story about magic or supernatural forces. | 
-
-<br/>
-
-✅ Create the table:
-<details>
-  <summary>Solution</summary>
-
+✅ Create the tables:
 ```
-CREATE TABLE IF NOT EXISTS genres (
-  genre TEXT,
-  description TEXT,
-  PRIMARY KEY ((genre))
+DROP TABLE IF EXISTS ratings_by_user;
+CREATE TABLE ratings_by_user (
+  email TEXT,
+  title TEXT,
+  year INT,
+  rating INT,
+  PRIMARY KEY ((email), title, year)
+);
+
+DROP TABLE IF EXISTS ratings_by_movie;
+CREATE TABLE ratings_by_movie (
+  title TEXT,
+  year INT,
+  email TEXT,
+  rating INT,
+  PRIMARY KEY ((title, year), email)
 );
 ```
 
-</details>
-
-<br/>
-
-✅ Insert the rows:
-<details>
-  <summary>Solution</summary>
-
+✅ Insert the movie rating: 
 ```
-INSERT INTO genres (genre, description) 
-VALUES ('Adventure', 'A story about a protagonist who journeys to epic or distant places to accomplish something.');
-INSERT INTO genres (genre, description) 
-VALUES ('Fantasy', 'A story about magic or supernatural forces.');
+BEGIN BATCH
+  INSERT INTO ratings_by_user (email, title, year, rating) 
+  VALUES ('joe@datastax.com', 'Alice in Wonderland', 2010, 9);
+  INSERT INTO ratings_by_movie (email, title, year, rating) 
+  VALUES ('joe@datastax.com', 'Alice in Wonderland', 2010, 9);
+APPLY BATCH;  
 ```
 
-</details>
-
-<br/>
-
-✅ Retrieve one row:
-<details>
-  <summary>Solution</summary>
-
+✅ Update the movie rating: 
 ```
-SELECT * FROM genres
-WHERE genre = 'Fantasy';
-```
-
-</details>
-
-<br/>
-
-✅ Retrieve all rows:
-<details>
-  <summary>Solution</summary>
-
-```
-SELECT * FROM genres;
+BEGIN BATCH
+  UPDATE ratings_by_user SET rating = 10 
+  WHERE email = 'joe@datastax.com' 
+    AND title = 'Alice in Wonderland' 
+    AND year  = 2010;
+  UPDATE ratings_by_movie SET rating = 10 
+  WHERE email = 'joe@datastax.com' 
+    AND title = 'Alice in Wonderland' 
+    AND year  = 2010;
+APPLY BATCH;  
 ```
 
-</details>
+✅ Retrieve the movie rating:
+```
+SELECT * FROM ratings_by_user  
+WHERE email = 'joe@datastax.com' 
+  AND title = 'Alice in Wonderland' 
+  AND year  = 2010;
+SELECT * FROM ratings_by_movie  
+WHERE email = 'joe@datastax.com' 
+  AND title = 'Alice in Wonderland' 
+  AND year  = 2010;
+```
 
 <!-- NAVIGATION -->
 <div id="navigation-bottom" class="navigation-bottom">
